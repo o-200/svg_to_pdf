@@ -1,0 +1,17 @@
+<div data-controller="pdf-uploader" class="converter-form">
+  <%= form_tag "#", data: { pdf_uploader_target: "form" }, multipart: true do %>
+    
+    <div class="form-group">
+      <%= label_tag :file, "Upload SVG File:" %><br>
+      <%= file_field_tag :file, data: { pdf_uploader_target: "file" } %>
+    </div>
+
+    <div class="form-group">
+      <br>
+      <%= button_tag "Convert to PDF", type: "button", data: { action: "click->pdf-uploader#submit" } %>
+    </div>
+
+  <% end %>
+
+  <div data-pdf-uploader-target="result" style="margin-top: 20px;"></div>
+</div>
