@@ -70,4 +70,4 @@ gem "prawn-svg", "~> 0.37.0"
 
 gem "rspec-rails", "~> 8.0"
 
-gem "alba", "~> 3.7"
+gem "nokogiri", "1.18"
