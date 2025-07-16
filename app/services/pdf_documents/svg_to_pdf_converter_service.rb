@@ -38,7 +38,6 @@ module PdfDocuments
     def format_svg_to_pdf(svg)
       begin
         pdf = Prawn::Document.new(
-          page_size: 'A4',
           margin: 36
         )
         pdf.svg(svg, at: [0, pdf.cursor], width: 500)
@@ -80,7 +79,7 @@ module PdfDocuments
       pdf.go_to_page(1)
       pdf.fill_color "cccccc"
       pdf.rotate(45, origin: [0, 0]) do
-        pdf.draw_text(params[:watermark], at: [100, 100], size: 50)
+        pdf.draw_text(params[:watermark], at: [100, 100], size: 100)
       end
     end
 
