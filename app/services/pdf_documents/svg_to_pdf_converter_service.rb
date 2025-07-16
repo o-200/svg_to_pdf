@@ -1,5 +1,5 @@
-require 'prawn'
-require 'prawn-svg'
+require "prawn"
+require "prawn-svg"
 
 module PdfDocuments
   class SvgToPdfConverterService < ApplicationService
@@ -40,7 +40,7 @@ module PdfDocuments
         pdf = Prawn::Document.new(
           margin: 36
         )
-        pdf.svg(svg, at: [0, pdf.cursor], width: 500)
+        pdf.svg(svg, at: [ 0, pdf.cursor ], width: 500)
         Result.new(value: pdf, errors:)
       rescue => e
         errors.merge!(invalid_svg: "Invalid SVG content: #{e.message}")
@@ -55,31 +55,31 @@ module PdfDocuments
       height = pdf.bounds.height
 
       pdf.stroke do
-        pdf.line [offset, height - offset], [offset + length, height - offset]
-        pdf.line [offset, height - offset], [offset, height - offset - length]
+        pdf.line [ offset, height - offset ], [ offset + length, height - offset ]
+        pdf.line [ offset, height - offset ], [ offset, height - offset - length ]
       end
 
       pdf.stroke do
-        pdf.line [width - offset, height - offset], [width - offset - length, height - offset]
-        pdf.line [width - offset, height - offset], [width - offset, height - offset - length]
+        pdf.line [ width - offset, height - offset ], [ width - offset - length, height - offset ]
+        pdf.line [ width - offset, height - offset ], [ width - offset, height - offset - length ]
       end
 
       pdf.stroke do
-        pdf.line [offset, offset], [offset + length, offset]
-        pdf.line [offset, offset], [offset, offset + length]
+        pdf.line [ offset, offset ], [ offset + length, offset ]
+        pdf.line [ offset, offset ], [ offset, offset + length ]
       end
 
       pdf.stroke do
-        pdf.line [width - offset, offset], [width - offset - length, offset]
-        pdf.line [width - offset, offset], [width - offset, offset + length]
+        pdf.line [ width - offset, offset ], [ width - offset - length, offset ]
+        pdf.line [ width - offset, offset ], [ width - offset, offset + length ]
       end
     end
 
     def add_watermark(pdf)
       pdf.go_to_page(1)
       pdf.fill_color "cccccc"
-      pdf.rotate(45, origin: [0, 0]) do
-        pdf.draw_text(params[:watermark], at: [100, 100], size: 100)
+      pdf.rotate(45, origin: [ 0, 0 ]) do
+        pdf.draw_text(params[:watermark], at: [ 100, 100 ], size: 100)
       end
     end
 
