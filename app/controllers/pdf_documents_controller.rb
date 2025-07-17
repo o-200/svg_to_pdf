@@ -28,7 +28,7 @@ class PdfDocumentsController < ApplicationController
   private
 
   def pdf_document_params
-    params.require(:pdf_document).permit(:filename)
+    params.require(:pdf_document).permit(:id)
   end
 
   def respond_with_success(message = "OK")

@@ -18,12 +18,14 @@ module PdfDocuments
 
     def process
       validate_params!
-
       pdf = format_svg_to_pdf(params[:svg]).value
 
       if errors.none?
         draw_crop_marks(pdf)
         add_watermark(pdf)
+
+        create_record(params)
+
         Result.new(value: pdf, errors:)
       else
         Result.new(errors:)
@@ -62,6 +64,10 @@ module PdfDocuments
       pdf.rotate(45, origin: [ 0, 0 ]) do
         pdf.draw_text(params[:watermark], at: [ 100, 100 ], size: 100)
       end
+    end
+
+    def create_record(params)
+      CreateService.new(params).call
     end
 
     def errors

@@ -9,7 +9,7 @@ module PdfDocuments
 
     def call
       begin
-        document = PdfDocument.find_by(params)
+        document = PdfDocument.find_by(id: params[:id])
         self.result = process(document)
       rescue
         self.result = Result.new(errors: { not_found: params })
