@@ -37,9 +37,7 @@ module PdfDocuments
 
     def format_svg_to_pdf(svg)
       begin
-        pdf = Prawn::Document.new(
-          margin: 36
-        )
+        pdf = Prawn::Document.new(margin: 36)
         pdf.svg(svg, at: [ 0, pdf.cursor ], width: 500)
         Result.new(value: pdf, errors:)
       rescue => e
@@ -49,29 +47,12 @@ module PdfDocuments
     end
 
     def draw_crop_marks(pdf)
-      length = 15
-      offset = 10
-      width = pdf.bounds.width
-      height = pdf.bounds.height
+      service = CropMarksDrawerService.new(pdf:).call
 
-      pdf.stroke do
-        pdf.line [ offset, height - offset ], [ offset + length, height - offset ]
-        pdf.line [ offset, height - offset ], [ offset, height - offset - length ]
-      end
-
-      pdf.stroke do
-        pdf.line [ width - offset, height - offset ], [ width - offset - length, height - offset ]
-        pdf.line [ width - offset, height - offset ], [ width - offset, height - offset - length ]
-      end
-
-      pdf.stroke do
-        pdf.line [ offset, offset ], [ offset + length, offset ]
-        pdf.line [ offset, offset ], [ offset, offset + length ]
-      end
-
-      pdf.stroke do
-        pdf.line [ width - offset, offset ], [ width - offset - length, offset ]
-        pdf.line [ width - offset, offset ], [ width - offset, offset + length ]
+      if service.success?
+        service.value
+      else
+        errors.merge!(service.errors)
       end
     end
 
