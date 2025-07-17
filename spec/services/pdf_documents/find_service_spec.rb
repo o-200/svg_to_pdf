@@ -23,12 +23,12 @@ RSpec.describe PdfDocuments::FindService do
     end
 
     context "when no matching record is found" do
-      let(:params) { { id: record.id } }
+      let(:params) { { id: record.id + 1 } }
 
       it "returns an error for not_found" do
         expect(service.value).to be_nil
         expect(service.errors).to include(:not_found)
-        expect(service.errors[:not_found]).to eq({ id: record.id })
+        expect(service.errors[:not_found]).to eq({ id: params[:id] })
       end
     end
 
