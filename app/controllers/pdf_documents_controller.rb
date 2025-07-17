@@ -14,7 +14,26 @@ class PdfDocumentsController < ApplicationController
     end
   end
 
+  def show
+    service = PdfDocuments::FindService.new(pdf_document_params).call
+
+    if service.success?
+      serializer = PdfDocumentSerializer.new(service.value).serialize
+      render json: serializer
+    else
+      respond_with_failure(message: "Not Found", errors: service.errors)
+    end
+  end
+
   private
+
+  def pdf_document_params
+    params.require(:pdf_document).permit(:filename)
+  end
+
+  def respond_with_success(message = "OK")
+    render json: { result: { message: } }, status: :ok
+  end
 
   def respond_with_failure(message, errors)
     render json: {
