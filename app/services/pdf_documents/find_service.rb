@@ -8,26 +8,23 @@ module PdfDocuments
     end
 
     def call
-      begin
-        document = PdfDocument.find_by(id: params[:id])
-        self.result = process(document)
-      rescue
-        self.result = Result.new(errors: { not_found: params })
-      end
+      self.result = process
     end
 
     private
 
-    def process(document)
+    def process
+      document = PdfDocument.find_by(id: params[:id])
       if document
         Result.new(value: document, errors: errors)
       else
-        raise "document not found"
+        errors.merge!(not_found: "Document not found")
+        Result.new(errors: errors)
       end
     end
 
     def errors
-      {}
+      @errors ||= {}
     end
   end
 end

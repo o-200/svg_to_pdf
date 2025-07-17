@@ -28,7 +28,6 @@ RSpec.describe PdfDocuments::FindService do
       it "returns an error for not_found" do
         expect(service.value).to be_nil
         expect(service.errors).to include(:not_found)
-        expect(service.errors[:not_found]).to eq({ id: params[:id] })
       end
     end
 
@@ -37,7 +36,7 @@ RSpec.describe PdfDocuments::FindService do
 
       it "returns nil value and no errors" do
         expect(service.value).to be_nil
-        expect(service.errors).to eq(not_found: {})
+        expect(service.errors).to eq(not_found: "Document not found")
       end
     end
 

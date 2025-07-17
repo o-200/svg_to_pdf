@@ -35,7 +35,7 @@ class PdfDocumentsController < ApplicationController
     render json: { result: { message: } }, status: :ok
   end
 
-  def respond_with_failure(message, errors)
+  def respond_with_failure(message: "Not Found", errors: {})
     render json: {
       result: {
         message:,
