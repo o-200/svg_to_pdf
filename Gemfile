@@ -72,4 +72,4 @@ gem "rspec-rails", "~> 8.0"
 
 gem "nokogiri", "1.18"
 
-gem "alba", "~> 3.7"
+gem "alba", "~> 3.8"
