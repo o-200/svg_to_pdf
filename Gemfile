@@ -66,7 +66,7 @@ gem "mini_magick", "~> 5.3"
 
 gem "prawn", "~> 2.5"
 
-gem "prawn-svg", "~> 0.37.0"
+gem "prawn-svg", "~> 0.38.0"
 
 gem "rspec-rails", "~> 8.0"
 
